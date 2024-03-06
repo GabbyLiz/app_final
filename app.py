@@ -1,32 +1,29 @@
 import streamlit as st
-from tensorflow.keras.models import load_model
 import gdown
-import requests
-from io import BytesIO
-import tempfile
-import os
+from tensorflow.keras.models import load_model
 
-st.title('Mi Aplicación Streamlit con Modelo Preentrenado')
+st.title('Descargar y Cargar Pesos desde Google Drive')
 
 # Enlace compartido de Google Drive al archivo HDF5 (reemplaza 'your_file_id')
 enlace_google_drive = 'https://drive.google.com/uc?id=1NNw7-bCVLEYNKH4Q6rnwXCRkxa2IHAka'
 
-# Función para cargar el modelo desde Google Drive
-def cargar_modelo_desde_drive(enlace):
-    with st.spinner('Descargando el modelo...'):
-        response = requests.get(enlace)
-        temp_file = tempfile.NamedTemporaryFile(delete=False)
-        temp_file.write(response.content)
-        temp_file.close()
-        modelo_cargado = load_model(temp_file.name)
-        os.remove(temp_file.name)
-    return modelo_cargado
+# Botón para iniciar la descarga
+if st.button('Descargar Pesos desde Google Drive'):
+    with st.spinner('Descargando los pesos...'):
+        # Descargar el archivo desde Google Drive
+        output_file_path = 'pesos.hdf5'
+        gdown.download(enlace_google_drive, output_file_path, quiet=False)
 
-# Cargar el modelo en tiempo real
-modelo_cargado = cargar_modelo_desde_drive(enlace_google_drive)
+        st.success('Descarga completa. Puedes cargar los pesos ahora.')
 
-# Hacer predicciones o cualquier otra cosa con el modelo cargado
-# ...
-
-# Mostrar información sobre el modelo
-st.write("Modelo cargado exitosamente:", modelo_cargado.summary())
+# Cargar el modelo con los pesos descargados
+if st.button('Cargar Modelo con Pesos'):
+    try:
+        # Cargar el modelo con los pesos
+        modelo_cargado = load_model('pesos.hdf5')
+        st.success('Modelo cargado exitosamente con los pesos descargados.')
+        
+        # Realizar acciones adicionales con el modelo cargado si es necesario
+        # ...
+    except Exception as e:
+        st.error(f'Error al cargar el modelo: {e}')
