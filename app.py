@@ -1,6 +1,7 @@
 import streamlit as st
 import gdown
-import requests  # Asegúrate de agregar esta línea
+import requests
+import os 
 from tensorflow.keras.models import load_model
 
 st.title('Descargar y Cargar Pesos desde Google Drive')
