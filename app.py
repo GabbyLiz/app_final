@@ -7,7 +7,7 @@ from tensorflow.keras.models import load_model
 st.title('Descargar y Cargar Pesos desde Google Drive')
 
 # Enlace compartido de Google Drive al archivo HDF5 (reemplaza 'your_file_id')
-enlace_google_drive = 'https://drive.google.com/uc?id=1NNw7-bCVLEYNKH4Q6rnwXCRkxa2IHAka'
+enlace_google_drive = 'https://drive.google.com/uc?id=1xcvKb0Uqu5iVuNcKt_ry57J7GCm3TN3w'
 
 # Obtener el tamaño original del archivo en bytes
 with st.spinner('Obteniendo información del archivo...'):
