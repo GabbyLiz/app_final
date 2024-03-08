@@ -3,6 +3,7 @@ import gdown
 import requests
 import os 
 from tensorflow.keras.models import load_model
+from PIL import Image
 
 st.title('Descargar y Cargar Pesos desde Google Drive')
 
@@ -16,6 +17,16 @@ descarga_realizada = st.session_state.get('descarga_realizada', False)
 with st.spinner('Obteniendo información del archivo...'):
     response = requests.head(enlace_google_drive)
     file_size_original = int(response.headers['Content-Length'])
+
+# Crear una sección para cargar una imagen
+st.header('Cargar Imagen')
+
+# Añadir un botón para cargar la imagen
+imagen_cargada = st.file_uploader('Selecciona una imagen', type=['jpg', 'jpeg', 'png'])
+
+# Mostrar la imagen cargada si existe
+if imagen_cargada is not None:
+    st.image(imagen_cargada, caption='Imagen cargada', use_column_width=True)
 
 # Crear una barra lateral para las opciones de descarga
 st.sidebar.subheader('Opciones de Descarga')
