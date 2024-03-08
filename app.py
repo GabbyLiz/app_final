@@ -17,12 +17,13 @@ with st.spinner('Obteniendo información del archivo...'):
     response = requests.head(enlace_google_drive)
     file_size_original = int(response.headers['Content-Length'])
 
-# Caja de selección para elegir la opción de descarga
-opcion_descarga = st.selectbox('Seleccione una opción de descarga:', ['Seleccione', 'Opción 1', 'Opción 2', 'Opción 3'])
+# Crear una barra lateral para las opciones de descarga
+st.sidebar.subheader('Opciones de Descarga')
+opcion_descarga = st.sidebar.selectbox('Seleccione una opción de descarga:', ['Seleccione', 'Opción 1', 'Opción 2', 'Opción 3'])
 
 # Botón para iniciar la descarga solo si se selecciona una opción válida y la descarga aún no se ha realizado
 if opcion_descarga != 'Seleccione' and not descarga_realizada:
-    if st.button(f'Descargar Pesos para {opcion_descarga} desde Google Drive'):
+    if st.sidebar.button(f'Descargar Pesos para {opcion_descarga} desde Google Drive'):
         with st.spinner('Descargando los pesos...'):
             # Descargar el archivo desde Google Drive
             output_file_path = f'pesos_{opcion_descarga.lower()}.hdf5'
@@ -39,7 +40,7 @@ if opcion_descarga != 'Seleccione' and not descarga_realizada:
             st.session_state.descarga_realizada = True
 
 # Cargar el modelo con los pesos descargados solo si la descarga se ha realizado
-if descarga_realizada and st.button('Cargar Modelo con Pesos'):
+if descarga_realizada and st.sidebar.button('Cargar Modelo con Pesos'):
     try:
         # Cargar el modelo con los pesos
         modelo_cargado = load_model(f'pesos_{opcion_descarga.lower()}.hdf5')
