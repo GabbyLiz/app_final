@@ -19,7 +19,7 @@ with st.spinner('Obteniendo información del archivo...'):
     file_size_original = int(response.headers['Content-Length'])
 
 # Crear una sección para cargar una imagen de fondo
-background_image = 'logo2.png'  # Ruta de la imagen de fondo
+background_image = '136644343_0e2b423829.jpg'  # Ruta de la imagen de fondo
 st.markdown(
     f"""
     <style>
