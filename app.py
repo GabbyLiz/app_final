@@ -18,6 +18,20 @@ with st.spinner('Obteniendo información del archivo...'):
     response = requests.head(enlace_google_drive)
     file_size_original = int(response.headers['Content-Length'])
 
+# Crear una sección para cargar una imagen de fondo
+background_image = 'logo2.png'  # Ruta de la imagen de fondo
+st.markdown(
+    f"""
+    <style>
+        .reportview-container {{
+            background: url({background_image}) no-repeat center center fixed;
+            background-size: cover;
+        }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Crear una sección para cargar una imagen
 st.header('Cargar Imagen')
 
