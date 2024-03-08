@@ -19,12 +19,14 @@ with st.spinner('Obteniendo información del archivo...'):
     file_size_original = int(response.headers['Content-Length'])
 
 # Crear una sección para cargar una imagen de fondo
-background_image = '136644343_0e2b423829.jpg'  # Ruta de la imagen de fondo
+background_image = 'logo2.png'  # Ruta de la imagen de fondo
+
+# Utilizar CSS directamente para establecer la imagen de fondo
 st.markdown(
     f"""
     <style>
-        .reportview-container {{
-            background: url({background_image}) no-repeat center center fixed;
+        body {{
+            background-image: url('{background_image}');
             background-size: cover;
         }}
     </style>
@@ -61,6 +63,9 @@ if opcion_descarga != 'Seleccione' and not descarga_realizada:
             st.info(f'Tamaño original del archivo: {file_size_original / (1024 ** 2):.2f} MB')
             st.info(f'Tamaño del archivo descargado: {file_size_downloaded / (1024 ** 2):.2f} MB')
 
+            # Aquí puedes realizar tratamiento adicional para el archivo descargado
+            # ...
+
             # Actualizar la variable de sesión para indicar que la descarga se ha realizado
             st.session_state.descarga_realizada = True
 
@@ -71,7 +76,8 @@ if descarga_realizada and st.sidebar.button('Cargar Modelo con Pesos'):
         modelo_cargado = load_model(f'pesos_{opcion_descarga.lower()}.hdf5')
         st.success('Modelo cargado exitosamente con los pesos descargados.')
         
-        # Realizar acciones adicionales con el modelo cargado si es necesario
+        # Aquí puedes realizar tratamiento adicional para el modelo cargado
         # ...
+
     except Exception as e:
         st.error(f'Error al cargar el modelo: {e}')
